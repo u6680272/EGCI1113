@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <math.h>
+
+void main()
+{
+
+    double a,b,c;
+    double dis,x1,x2;
+
+    printf("Enter coefficient a: ");
+    scanf("%lf",&a);
+    printf("Enter coefficient b: ");
+    scanf("%lf",&b);
+    printf("Enter coefficient c: ");
+    scanf("%lf",&c);
+
+    printf("The polynomial is %.0fx^2+%.0fx+%.0f__",a,b,c);
+
+    if (a==0)
+        if(b==0)
+            if(c==0)
+                    printf("infinite solution\n");
+                else
+                    printf(" No solution\n ");
+
+                else{
+                    // One solution
+                        x1=-c/b;
+                        printf(" Single solution : X1 = %lf\n",x1);
+                    }
+            else{
+                // Discriminant
+                dis=b*b-(4*a*c);
+
+                if(dis>0){
+                    // two real
+                     x1=((-b+(sqrt((b*b)-(4*a*c))))/(2*a));
+                     x2=((-b+(sqrt((b*b)-(4*a*c))))/(2*a));
+                    printf("Two solutions: X1=%lf, X2=%lf",x1,x2);
+                }else if (dis==0){
+                    // one real
+                    x1=-b/(2*a);
+                    printf("Single solution: X1 =%lf\n",x1);
+                }else{
+                    // No real
+                    printf("No solution\n");
+                }
+            }
+    return 0;
+}

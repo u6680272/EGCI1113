@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct Account {
+    char name[50];
+    float value;
+};
+
+
+void addAccount(struct Account *accounts, int *numAccounts) {
+    printf("Enter account name: ");
+    scanf("%s", accounts[*numAccounts].name);
+
+    printf("Enter account value: ");
+    scanf("%f", &accounts[*numAccounts].value);
+
+    (*numAccounts)++;
+}
+
+
+void showAllAccounts(struct Account *accounts, int numAccounts) {
+    float sum = 0.0;
+
+    printf("\nAll Accounts:\n");
+    printf("%-20s %-10s\n", "Account Name", "Value");
+    printf("-----------------------------------\n");
+
+    for (int i = 0; i < numAccounts; i++) {
+        printf("%-20s %-10.2f\n", accounts[i].name, accounts[i].value);
+        sum += accounts[i].value;
+    }
+
+    printf("\nTotal Value: %.2f\n", sum);
+}
+
+
+void searchAccount(struct Account *accounts, int numAccounts) {
+    char searchName[50];
+    printf("Enter account name to search: ");
+    scanf("%s", searchName);
+
+    float sum = 0.0;
+    int found = 0;
+
+    printf("\nSearch Results:\n");
+    printf("%-20s %-10s\n", "Account Name", "Value");
+    printf("-----------------------------------\n");
+
+    for (int i = 0; i < numAccounts; i++) {
+        if (strcmp(accounts[i].name, searchName) == 0) {
+            printf("%-20s %-10.2f\n", accounts[i].name, accounts[i].value);
+            sum += accounts[i].value;
+            found = 1;
+            break;  
+        }
+    }
+
+    if (!found) {
+        printf("Account not found.\n");
+    } else {
+        printf("\nTotal Value: %.2f\n", sum);
+    }
+}
+
+int main() {
+    struct Account accounts[100];
+    int numAccounts = 0;
+    int choice;
+
+    do {
+        printf("\nMenu:\n");
+        printf("1. Add Account\n");
+        printf("2. Show All Accounts\n");
+        printf("3. Search Account\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addAccount(accounts, &numAccounts);
+                break;
+            case 2:
+                showAllAccounts(accounts, numAccounts);
+                break;
+            case 3:
+                searchAccount(accounts, numAccounts);
+                break;
+            case 4:
+                printf("Exiting program.\n");
+                break;
+            default:
+                printf("Invalid choice. Please enter a number between 1 and 4.\n");
+        }
+    } while (choice != 4);
+
+    return 0;
+}

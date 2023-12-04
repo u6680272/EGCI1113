@@ -1,0 +1,76 @@
+#include <stdio.h>
+#define SIZE 10
+
+struct student {
+    char name[30];
+    double score;
+    char grade;
+};
+
+void showStudent(struct student);
+int getStudent(struct student[]);
+void convertGrade(struct student[], int);
+void printHighest(struct student[], int);
+
+int main() {
+    struct student st[SIZE];
+    int n;
+    n = getStudent(st);
+    convertGrade(st, n);
+
+    printf("\n== All Students ==\n");
+    for (int i = 0; i < n; i++) {
+        showStudent(st[i]);
+    }
+
+    printHighest(st, n);
+
+    return 0;
+}
+
+void showStudent(struct student s) {
+    printf("Name: %s has score %.2f and grade %c\n", s.name, s.score, s.grade);
+}
+
+int getStudent(struct student st[]) {
+    int n;
+    printf("How many students? (max %d): ", SIZE);
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        printf("Input student %d name: ", i + 1);
+        scanf("%s", st[i].name);
+
+        printf("Input student %d score: ", i + 1);
+        scanf("%lf", &st[i].score);
+    }
+
+    return n;
+}
+
+void convertGrade(struct student s[], int n) {
+    for (int i = 0; i < n; i++) {
+        
+        if (s[i].score >= 80) {
+            s[i].grade = 'A';
+        } else if (s[i].score >= 70) {
+            s[i].grade = 'B';
+        } else if (s[i].score >= 60) {
+            s[i].grade = 'C';
+        } else {
+            s[i].grade = 'F';
+        }
+    }
+}
+
+void printHighest(struct student st[], int n) {
+    struct student max = st[0];
+    for (int i = 1; i < n; i++) {
+        if (st[i].score > max.score) {
+            max = st[i];
+        }
+    }
+
+    printf("\n== Student with the highest score ==\n");
+    showStudent(max);
+}
